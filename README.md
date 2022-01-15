@@ -1,1 +1,1 @@
-# WIP_Project
+# WIP Project started on 09/01/2022 Based on my old game Dirt Inc. All files and folders subject to copyright and may not be used or distributed for commercial reasons.
