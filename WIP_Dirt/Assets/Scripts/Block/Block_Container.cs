@@ -8,11 +8,13 @@ public class Block_Container : MonoBehaviour
 {
     private MeshRenderer currentMesh;
 
+    //Get mesh renderer component
     private void OnEnable()
     {
         currentMesh = GetComponent<MeshRenderer>();
     }
 
+    //Set the block material based in the input type
     public void SetBlockMaterial(Dirt_Inc_Settings.BlockType _blockType)
     {
         if (currentMesh)

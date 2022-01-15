@@ -7,50 +7,126 @@ using UnityEngine;
 //Contains the prefabs for use in the game
 public class Prefab_Manager : MonoBehaviour
 {
-    private static Prefab_Manager instance;
-    //Blocks
-    public GameObject dirtBlockPrefab;
-    public static GameObject GetDirtBlockPrefab() => instance.dirtBlockPrefab;
-    public Material DIRT_MAT;
-    public Material STONE_MAT;
-    public Material TIN_MAT;
-    public Material COPPER_MAT;
-    public Material IRON_MAT;
-    public Material LEAD_MAT;
-    public Material GOLD_MAT;
-    public Material EMERALD_MAT;
-    public Material DIAMOND_MAT;
+    //Block resources
+    private static GameObject dirtBlockPrefab;
+    private static Material DIRT_MAT;
+    private static Material STONE_MAT;
+    private static Material TIN_MAT;
+    private static Material COPPER_MAT;
+    private static Material IRON_MAT;
+    private static Material LEAD_MAT;
+    private static Material GOLD_MAT;
+    private static Material EMERALD_MAT;
+    private static Material DIAMOND_MAT;
+    private readonly string MATERIAL_RESOURCE_PATH = $"Materials/Blocks/";
+    private readonly string PREFAB_RESOURCE_PATH = "Prefabs/";
 
+    //Load resources
     private void OnEnable()
     {
-        if (!instance)
-            instance = this;
+        if (!Load_Materials())
+            Debug.LogError("Failed to load materials");
+        if (!Load_Prefabs())
+            Debug.LogError("Failed to load prefabs");
     }
 
+    //Unload resources
+    private void OnDisable()
+    {
+        Resources.UnloadUnusedAssets();
+    }
+
+    private bool Load_Prefabs()
+    {
+        if(!(dirtBlockPrefab = Resources.Load<GameObject>(PREFAB_RESOURCE_PATH+$"Dirt_Block/Dirt_Block")))
+        {
+            Debug.LogError("Failed to load dirt block prefab");
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool Load_Materials()
+    {
+        if (!(DIRT_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Dirt_MAT")))
+        {
+            Debug.LogError("Failed to load Dirt Mat");
+            return false;
+        }
+
+        if (!(STONE_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Stone_MAT")))
+        {
+            Debug.LogError("Failed to load Stone Mat");
+            return false;
+        }
+        if (!(TIN_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Tin_MAT")))
+        {
+            Debug.LogError("Failed to load Tin Mat");
+            return false;
+        }
+        if (!(COPPER_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Copper_MAT")))
+        {
+            Debug.LogError("Failed to load Copper Mat");
+            return false;
+        }
+        if (!(IRON_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Iron_MAT")))
+        {
+            Debug.LogError("Failed to load Iron Mat");
+            return false;
+        }
+        if (!(LEAD_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Lead_MAT")))
+        {
+            Debug.LogError("Failed to load Lead Mat");
+            return false;
+        }
+        if (!(GOLD_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Gold_MAT")))
+        {
+            Debug.LogError("Failed to load Gold Mat");
+            return false;
+        }
+        if (!(EMERALD_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Emerald_MAT")))
+        {
+            Debug.LogError("Failed to load Emerald Mat");
+            return false;
+        }
+        if (!(DIAMOND_MAT = Resources.Load<Material>(MATERIAL_RESOURCE_PATH + $"Diamond_MAT")))
+        {
+            Debug.LogError("Failed to load Diamond Mat");
+            return false;
+        }
+
+        return true;
+    }
+
+    //Get the block prefab
+    public static GameObject GetDirtBlockPrefab() => dirtBlockPrefab;
+
+    //Get the material based on the block type
     public static Material GetMaterial(Dirt_Inc_Settings.BlockType _blockType)
     {
         switch(_blockType)
         {
             case Dirt_Inc_Settings.BlockType.dirt:
-                return instance.DIRT_MAT;
+                return DIRT_MAT;
             case Dirt_Inc_Settings.BlockType.stone:
-                return instance.STONE_MAT;
+                return STONE_MAT;
             case Dirt_Inc_Settings.BlockType.tin:
-                return instance.TIN_MAT;
+                return TIN_MAT;
             case Dirt_Inc_Settings.BlockType.copper:
-                return instance.COPPER_MAT;
+                return COPPER_MAT;
             case Dirt_Inc_Settings.BlockType.iron:
-                return instance.IRON_MAT;
+                return IRON_MAT;
             case Dirt_Inc_Settings.BlockType.lead:
-                return instance.LEAD_MAT;
+                return LEAD_MAT;
             case Dirt_Inc_Settings.BlockType.gold:
-                return instance.GOLD_MAT;
+                return GOLD_MAT;
             case Dirt_Inc_Settings.BlockType.emerald:
-                return instance.EMERALD_MAT;
+                return EMERALD_MAT;
             case Dirt_Inc_Settings.BlockType.diamond:
-                return instance.DIAMOND_MAT;
+                return DIAMOND_MAT;
             default:
-                return instance.DIRT_MAT;
+                return DIRT_MAT;
         }
     }
 }
