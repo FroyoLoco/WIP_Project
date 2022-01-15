@@ -1,0 +1,86 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Main_Game",
+            "id": "1c19db28-7911-422f-ae84-442cb7a88a30",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "87ae6735-5ca9-462d-81f4-5558788776f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dig",
+                    "type": "Button",
+                    "id": "9dc09bc1-531d-4d45-abd5-b1ba6a2f103b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Start_Game",
+                    "type": "Button",
+                    "id": "df41bc6a-1ba9-40e4-9bf3-0e3f1c368ea5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1e23120d-b916-4548-a63d-4d38b40e0d57",
+                    "path": "<Touchscreen>/touch0/tap",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "Dirt_Controls",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a30c6031-a165-4b82-8468-3d26c70348a8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Dirt_Controls",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c64183dc-a968-4805-9a40-c7a506148446",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start_Game",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Dirt_Controls",
+            "bindingGroup": "Dirt_Controls",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
