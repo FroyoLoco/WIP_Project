@@ -12,8 +12,10 @@ public class Dirt_Player_Controller : MonoBehaviour
     private InputAction startGameAction;
     private InputAction orbitAction;
 
+    private Vector2 orbitDirection;
 
     private const float CAMERA_DISTANCE = 12f;
+    private Camera mainCamera;
 
     #region Enable/Disable/Start
     private void OnEnable() => SetupControls();
@@ -28,17 +30,28 @@ public class Dirt_Player_Controller : MonoBehaviour
     //Get the control actions and enable them
     private void SetupControls()
     {
+        mainCamera = Camera.main;
+        if (!mainCamera)
+            Debug.LogError("Failed to find main camera");
+
         digAction = currentInput.currentActionMap.FindAction("Dig");
         if (digAction != null)
             digAction.Enable();
+        else
+            Debug.LogError("Failed to find dig action");
+        
 
         startGameAction = currentInput.currentActionMap.FindAction("Start_Game");
         if (startGameAction != null)
             startGameAction.Enable();
+        else
+            Debug.LogError("Failed to find start game action");
 
-        orbitAction = currentInput.currentActionMap.FindAction("Orbit");
+        orbitAction = currentInput.currentActionMap.FindAction("Orbit_Arrows");
         if (orbitAction != null)
             orbitAction.Enable();
+        else
+            Debug.LogError("Failed to find orbit action");
 
     }
 
@@ -77,29 +90,10 @@ public class Dirt_Player_Controller : MonoBehaviour
 
     private void OnOrbit(InputAction.CallbackContext obj)
     {
-        //print("holding" + obj.action.activeControl.name);
-        string n = obj.action.activeControl.name;
-
-        switch (n)
-        {
-            case "leftArrow":
-                print("move left");
-                break;
-            case "rightArrow":
-                print("move right");
-                break;
-            case "upArrow":
-                print("move up");
-                break;
-            case "downArrow":
-                print("move down");
-                break;
-            default:
-                print("control not found");
-                break;
-        }
-        
+        orbitDirection = obj.ReadValue<Vector2>();
     }
+
+
     #endregion
 
     #region Adding and Removing Control Events
@@ -127,5 +121,15 @@ public class Dirt_Player_Controller : MonoBehaviour
             orbitAction.performed -= OnOrbit;
     }
 
+    #endregion
+
+    #region Control Functionality
+    private void Update()
+    {
+        if(orbitDirection != Vector2.zero)
+        {
+            print(orbitDirection);
+        }
+    }
     #endregion
 }

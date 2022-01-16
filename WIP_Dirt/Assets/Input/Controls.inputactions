@@ -33,13 +33,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Orbit",
-                    "type": "Button",
+                    "name": "Orbit_Arrows",
+                    "type": "Value",
                     "id": "afcfa835-ce6c-4f46-9ad2-08d28e0dcdb7",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": false
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -77,48 +77,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "dd0ea098-32e9-4b22-a5a6-32ce56cf8d99",
+                    "name": "Dir",
+                    "id": "5636108b-a2b7-4f66-a3af-df85196686b7",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Orbit_Arrows",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "62c4ca73-cff1-4153-bf87-4a2d26ebaebb",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Orbit",
+                    "action": "Orbit_Arrows",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "cf33f142-a6d9-4e80-8239-f53fe4843316",
+                    "name": "down",
+                    "id": "974bd49f-c2aa-4db5-8558-4e63f46bb0c2",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Orbit",
+                    "action": "Orbit_Arrows",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "7a8cfca7-11d6-443f-81e5-9985fba4166d",
+                    "name": "left",
+                    "id": "a0f42cfb-42e1-43e5-bffb-b07931062630",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Orbit",
+                    "action": "Orbit_Arrows",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "423866d9-d194-4768-9e45-5e4914577588",
+                    "name": "right",
+                    "id": "312e45d4-5c12-4862-85fc-94e9d26c299f",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Orbit",
+                    "action": "Orbit_Arrows",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 }
             ]
         }
