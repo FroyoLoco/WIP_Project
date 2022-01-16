@@ -10,6 +10,10 @@ public class Dirt_Player_Controller : MonoBehaviour
     public PlayerInput currentInput;
     private InputAction digAction;
     private InputAction startGameAction;
+    private InputAction orbitAction;
+
+
+    private const float CAMERA_DISTANCE = 12f;
 
     #region Enable/Disable/Start
     private void OnEnable() => SetupControls();
@@ -32,6 +36,10 @@ public class Dirt_Player_Controller : MonoBehaviour
         if (startGameAction != null)
             startGameAction.Enable();
 
+        orbitAction = currentInput.currentActionMap.FindAction("Orbit");
+        if (orbitAction != null)
+            orbitAction.Enable();
+
     }
 
     //Disable the control actions
@@ -42,6 +50,9 @@ public class Dirt_Player_Controller : MonoBehaviour
 
         if (startGameAction != null)
             startGameAction.Disable();
+
+        if (orbitAction != null)
+            orbitAction.Disable();
     }
 
 
@@ -63,6 +74,32 @@ public class Dirt_Player_Controller : MonoBehaviour
     {
         Upgrade_Manager.upgradeAccessor.TryUpgrade(Upgrade_Manager.UpgradeType.Blocks_Per_Tap);
     }
+
+    private void OnOrbit(InputAction.CallbackContext obj)
+    {
+        //print("holding" + obj.action.activeControl.name);
+        string n = obj.action.activeControl.name;
+
+        switch (n)
+        {
+            case "leftArrow":
+                print("move left");
+                break;
+            case "rightArrow":
+                print("move right");
+                break;
+            case "upArrow":
+                print("move up");
+                break;
+            case "downArrow":
+                print("move down");
+                break;
+            default:
+                print("control not found");
+                break;
+        }
+        
+    }
     #endregion
 
     #region Adding and Removing Control Events
@@ -73,6 +110,9 @@ public class Dirt_Player_Controller : MonoBehaviour
 
         if (startGameAction != null)
             startGameAction.performed += OnStartGameAction;
+
+        if (orbitAction != null)
+            orbitAction.performed += OnOrbit;
     }
 
     private void RemoveControlEvents()
@@ -82,6 +122,9 @@ public class Dirt_Player_Controller : MonoBehaviour
 
         if (startGameAction != null)
             startGameAction.performed -= OnStartGameAction;
+
+        if (orbitAction != null)
+            orbitAction.performed -= OnOrbit;
     }
 
     #endregion

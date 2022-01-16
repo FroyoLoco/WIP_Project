@@ -18,8 +18,8 @@ public class Dirt_Inc_Settings
     public static byte Get_Block_Count_Z() => BLOCK_COUNT_Z;
 
     //Where the blocks will begin
-    private static readonly Vector3 worldSpawnPos = Vector3.zero;
-    public static Vector3 Get_World_Spawn_Pos() => worldSpawnPos;
+    private static readonly Vector3 worldCenterPos = Vector3.zero;
+    public static Vector3 Get_World_Center_Pos() => worldCenterPos;
 
     //The size of the blocks
     private const float BLOCK_SCALE_X = 1;
@@ -57,6 +57,11 @@ public class Dirt_Inc_Settings
         public BlockType GetBlockType() => blockType;
         public GameObject GetBlockObject() => blockObject;
         public Block_Container GetBlockContainer() => blockContainer;
+
+        public void Set_Block_Type(BlockType _blockType)
+        {
+            blockType = _blockType;
+        }
     }
 
     //The value of a block
@@ -252,7 +257,6 @@ public class Dirt_Inc_Settings
                     else
                     {
                         newCoords.y += 1;
-                        //Move_Camera_Down();
                     }
                 }
                 else
@@ -262,7 +266,6 @@ public class Dirt_Inc_Settings
             }
             else
             {
-                //Move_Camera_Across(newCoords.x);
                 temp.Toggle_Block(false);
                 newCoords.x += 1;
             }
@@ -275,49 +278,7 @@ public class Dirt_Inc_Settings
     //Reset all the blocks back to visible
     private static void Reset_Ground()
     {
-        foreach(Block b in Get_Ground())
-        {
-            b.Toggle_Block(true);
-        }
-
-        Reset_Camera_Full();
-    }
-    #endregion
-
-    #region Camera Funtionality
-    //Camera start points (TEMP)
-    private const float CAMERA_START_Y = 0.81f;
-    private const float CAMERA_START_X = 2.94f;
-
-    private static void Move_Camera_Down()
-    {
-        Camera.main.transform.position -= new Vector3(0, Get_Block_Scale_Y(), 0);
-        Reset_Camera_Across();
-    }
-
-    private static void Move_Camera_Across(byte _x)
-    {
-        byte halfBlockCountX = (byte)(Get_Block_Count_X() / 2);
-
-        if (_x == halfBlockCountX)
-        {
-            Camera.main.transform.position += new Vector3(Get_Block_Scale_X() * halfBlockCountX, 0, 0);
-        }
-    }
-
-    private static void Reset_Camera_Across()
-    {
-        Vector3 camPos = Camera.main.transform.position;
-        camPos.x = CAMERA_START_X;
-        Camera.main.transform.position = camPos;
-    }
-
-    private static void Reset_Camera_Full()
-    {
-        Vector3 camPos = Camera.main.transform.position;
-        camPos.y = CAMERA_START_Y;
-        camPos.x = CAMERA_START_X;
-        Camera.main.transform.position = camPos;
+        Ground_Generator.Update_Ground(ref Block_Container);
     }
     #endregion
 }
