@@ -15,11 +15,11 @@ public class Block_Container : MonoBehaviour
     }
 
     //Set the block material based in the input type
-    public void SetBlockMaterial(Dirt_Inc_Settings.BlockType _blockType)
+    public void Set_Block_Material(Dirt_Inc_Settings.BlockType _blockType)
     {
         if (currentMesh)
         {
-            currentMesh.material = Prefab_Manager.GetMaterial(_blockType);
+            currentMesh.material = Prefab_Manager.Get_Material(_blockType);
         }
         else
         {

@@ -8,13 +8,13 @@ using UnityEngine;
 public class Ground_Generator : MonoBehaviour
 {
     //Generate a grid of blocks in the world
-    public static void Generate_Ground()
+    public static Dirt_Inc_Settings.Block[,,] Generate_Ground(Vector3 _groundCenter)
     {
         byte maxX = Dirt_Inc_Settings.Get_Block_Count_X();
         byte maxY = Dirt_Inc_Settings.Get_Block_Count_Y();
         byte maxZ = Dirt_Inc_Settings.Get_Block_Count_Z();
-        GameObject blockPrefab = Prefab_Manager.GetDirtBlockPrefab();
-        Vector3 blockStartPos = Dirt_Inc_Settings.Get_World_Center_Pos();
+        GameObject blockPrefab = Prefab_Manager.Get_Dirt_Block_Prefab();
+        Vector3 blockStartPos = _groundCenter;
         float blockScaleX = Dirt_Inc_Settings.Get_Block_Scale_X();
         float blockScaleY = Dirt_Inc_Settings.Get_Block_Scale_Y();
         float blockScaleZ = Dirt_Inc_Settings.Get_Block_Scale_Z();
@@ -36,34 +36,38 @@ public class Ground_Generator : MonoBehaviour
 
                     GameObject _block = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
                     generatedGround[x, y, z] = new Dirt_Inc_Settings.Block(new Dirt_Inc_Settings.Block_Coords(x, y, z),
-                                                                         Dirt_Inc_Settings.GetRandomBlockType(),
+                                                                         Dirt_Inc_Settings.Get_Random_BlockType(),
                                                                          _block,
                                                                          _block.GetComponent<Block_Container>());
 
-                    _block.name = $"{generatedGround[x, y, z].GetBlockType()} @ " +
-                                  $"{generatedGround[x, y, z].GetBlockCoords().x}," +
-                                  $"{generatedGround[x, y, z].GetBlockCoords().y}," +
-                                  $"{generatedGround[x, y, z].GetBlockCoords().z}";
+                    _block.name = $"{generatedGround[x, y, z].Get_Block_Type()} @ " +
+                                  $"{generatedGround[x, y, z].Get_Block_Coords().x}," +
+                                  $"{generatedGround[x, y, z].Get_Block_Coords().y}," +
+                                  $"{generatedGround[x, y, z].Get_Block_Coords().z}";
 
-                    if (!generatedGround[x, y, z].GetBlockContainer())
+                    if (!generatedGround[x, y, z].Get_Block_Container())
                         Debug.LogError("Failed to find block container!");
 
-                    generatedGround[x, y, z].GetBlockContainer().SetBlockMaterial(generatedGround[x, y, z].GetBlockType());
+                    generatedGround[x, y, z].Get_Block_Container().Set_Block_Material(generatedGround[x, y, z].Get_Block_Type());
                                   
                 }
             }
         }
 
-        if(!Dirt_Inc_Settings.Set_Ground(generatedGround))
+        /*
+        if(!Dirt_Inc_Settings.Set_Ground(0, generatedGround))
         {
             print("failed");
         }
         else
         {
-            print($"Complete X: {Dirt_Inc_Settings.Get_Ground().GetLength(0)}, " +
-                  $"Y: {Dirt_Inc_Settings.Get_Ground().GetLength(1)}, " +
-                  $"Z: {Dirt_Inc_Settings.Get_Ground().GetLength(2)}");
+            print($"Complete X: {Dirt_Inc_Settings.Get_Ground(0).GetLength(0)}, " +
+                  $"Y: {Dirt_Inc_Settings.Get_Ground(0).GetLength(1)}, " +
+                  $"Z: {Dirt_Inc_Settings.Get_Ground(0).GetLength(2)}");
         }
+        */
+
+        return generatedGround;
     }
 
     private static void Calculate_Block_Start_Pos(ref Vector3 _pos, int _xSize, int _ySize, int _zSize, float _scaleX, float _scaleY, float _scaleZ)
@@ -81,7 +85,7 @@ public class Ground_Generator : MonoBehaviour
     { 
         foreach (Dirt_Inc_Settings.Block _b in _ground)
         {
-            _b.Set_Block_Type(Dirt_Inc_Settings.GetRandomBlockType());
+            _b.Set_Block_Type(Dirt_Inc_Settings.Get_Random_BlockType());
             _b.Toggle_Block(true);
         }
     }

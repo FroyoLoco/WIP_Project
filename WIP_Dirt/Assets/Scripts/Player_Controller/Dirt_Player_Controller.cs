@@ -13,17 +13,17 @@ public class Dirt_Player_Controller : MonoBehaviour
     private InputAction orbitAction;
 
     #region Enable/Disable/Start
-    private void OnEnable() => SetupControls();
-    private void Start() => AddControlEvents();
+    private void OnEnable() => Setup_Controls();
+    private void Start() => Add_Control_Events();
     private void OnDisable()
     {
-        RemoveControlEvents();
-        DisableControls();
+        Remove_Control_Events();
+        Disable_Controls();
     }
     #endregion
 
     //Get the control actions and enable them
-    private void SetupControls()
+    private void Setup_Controls()
     {
         digAction = currentInput.currentActionMap.FindAction("Dig");
         if (digAction != null)
@@ -47,7 +47,7 @@ public class Dirt_Player_Controller : MonoBehaviour
     }
 
     //Disable the control actions
-    private void DisableControls()
+    private void Disable_Controls()
     {
         if (digAction != null)
             digAction.Disable();
@@ -62,24 +62,24 @@ public class Dirt_Player_Controller : MonoBehaviour
 
     #region Control Events
     //Testing controls
-    private void OnDigAction(InputAction.CallbackContext obj)
+    private void On_Dig_Action(InputAction.CallbackContext obj)
     {
-        DigBlock();
+        Dig_Block();
     }
 
-    private void DigBlock()
+    private void Dig_Block()
     {
-        Dirt_Numbers.Add_Dirt(Dirt_Inc_Settings.GetBlockValue(Dirt_Inc_Settings.GetCurrentBlock().GetBlockType()));
-        Dirt_Inc_Settings.Adjust_Current_Block(1);
+        Dirt_Numbers.Add_Dirt(Dirt_Inc_Settings.Get_Block_Value(Dirt_Inc_Settings.Get_Current_Block(0).Get_Block_Type()));
+        Dirt_Inc_Settings.Adjust_Current_Block(0, 1);
     }
 
     //Testing Controls
-    private void OnStartGameAction(InputAction.CallbackContext obj)
+    private void On_Start_Game_Action(InputAction.CallbackContext obj)
     {
-        Upgrade_Manager.upgradeAccessor.TryUpgrade(Upgrade_Manager.UpgradeType.Blocks_Per_Tap);
+        Upgrade_Manager.upgradeAccessor.Try_Upgrade(Upgrade_Manager.UpgradeType.Blocks_Per_Tap);
     }
 
-    private void OnOrbit(InputAction.CallbackContext obj)
+    private void On_Orbit(InputAction.CallbackContext obj)
     {
         if(obj.phase == InputActionPhase.Performed)
         {
@@ -89,28 +89,28 @@ public class Dirt_Player_Controller : MonoBehaviour
     #endregion
 
     #region Adding and Removing Control Events
-    private void AddControlEvents()
+    private void Add_Control_Events()
     {
         if (digAction != null)
-            digAction.performed += OnDigAction;
+            digAction.performed += On_Dig_Action;
 
         if (startGameAction != null)
-            startGameAction.performed += OnStartGameAction;
+            startGameAction.performed += On_Start_Game_Action;
 
         if (orbitAction != null)
-            orbitAction.performed += OnOrbit;
+            orbitAction.performed += On_Orbit;
     }
 
-    private void RemoveControlEvents()
+    private void Remove_Control_Events()
     {
         if (digAction != null)
-            digAction.performed -= OnDigAction;
+            digAction.performed -= On_Dig_Action;
 
         if (startGameAction != null)
-            startGameAction.performed -= OnStartGameAction;
+            startGameAction.performed -= On_Start_Game_Action;
 
         if (orbitAction != null)
-            orbitAction.performed -= OnOrbit;
+            orbitAction.performed -= On_Orbit;
     }
 
     #endregion

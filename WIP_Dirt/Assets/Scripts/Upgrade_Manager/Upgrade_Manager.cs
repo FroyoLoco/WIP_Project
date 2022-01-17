@@ -24,19 +24,19 @@ public class Upgrade_Manager
             upgrade = _upgrade;
         }
 
-        public UpgradeType GetUpgradeType() => upgrade;
+        public UpgradeType Get_Upgrade_Type() => upgrade;
 
-        public double GetUpgradeCost() => upgradeCost;
+        public double Get_Upgrade_Cost() => upgradeCost;
 
-        public void IncreaseUpgrade()
+        public void Increase_Upgrade()
         {
             upgradeCount += 1;
-            UpdateUpgradeCost();
+            Update_Upgrade_Cost();
             Debug.Log($"Upgrade success {upgrade} Cost: {upgradeCost} Count: {upgradeCount}");
         }
 
         //Temp
-        private void UpdateUpgradeCost()
+        private void Update_Upgrade_Cost()
         {
             upgradeCost = upgradeCount * 100;
         }
@@ -58,35 +58,35 @@ public class Upgrade_Manager
             }
         }
 
-        public int GetUpgradeIndex(UpgradeType _upgrade) => (int)_upgrade;
+        public int Get_Upgrade_Index(UpgradeType _upgrade) => (int)_upgrade;
 
-        public bool TryUpgrade(UpgradeType _upgrade)
+        public bool Try_Upgrade(UpgradeType _upgrade)
         {
-            int upgradeID = GetUpgradeIndex(_upgrade);
+            int upgradeID = Get_Upgrade_Index(_upgrade);
 
-            if (Dirt_Numbers.Spend_Dirt(upgradeList[upgradeID].GetUpgradeCost()))
+            if (Dirt_Numbers.Spend_Dirt(upgradeList[upgradeID].Get_Upgrade_Cost()))
             {
-                upgradeList[upgradeID].IncreaseUpgrade();
+                upgradeList[upgradeID].Increase_Upgrade();
                 return true;
             }
 
             return false;
         }
 
-        public string PrintUpgrade(int _id) => upgradeList[_id].GetUpgradeType().ToString();
+        public string Print_Upgrade(int _id) => upgradeList[_id].Get_Upgrade_Type().ToString();
 
-        public int GetUpgradeCount() => upgradeList.Length;
+        public int Get_Upgrade_Count() => upgradeList.Length;
     }
 
     //For testing
     public static UpgradeContainer upgradeAccessor;
-    public static void SetupUpgrades()
+    public static void Setup_Upgrades()
     {
         upgradeAccessor = new UpgradeContainer(4);
 
-        for (int i = 0; i < upgradeAccessor.GetUpgradeCount(); i ++)
+        for (int i = 0; i < upgradeAccessor.Get_Upgrade_Count(); i ++)
         {
-            Debug.Log(upgradeAccessor.PrintUpgrade(i));
+            Debug.Log(upgradeAccessor.Print_Upgrade(i));
         }
     }
 }

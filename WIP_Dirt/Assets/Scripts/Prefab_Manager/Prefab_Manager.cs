@@ -100,10 +100,10 @@ public class Prefab_Manager : MonoBehaviour
     }
 
     //Get the block prefab
-    public static GameObject GetDirtBlockPrefab() => dirtBlockPrefab;
+    public static GameObject Get_Dirt_Block_Prefab() => dirtBlockPrefab;
 
     //Get the material based on the block type
-    public static Material GetMaterial(Dirt_Inc_Settings.BlockType _blockType)
+    public static Material Get_Material(Dirt_Inc_Settings.BlockType _blockType)
     {
         switch(_blockType)
         {

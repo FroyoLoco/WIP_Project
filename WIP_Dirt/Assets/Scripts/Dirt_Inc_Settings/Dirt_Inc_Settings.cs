@@ -50,13 +50,14 @@ public class Dirt_Inc_Settings
 
         public void Toggle_Block(bool toggle)
         {
+            Debug.Log(blockObject);
             blockObject.SetActive(toggle);
         }
 
-        public Block_Coords GetBlockCoords() => blockCoords;
-        public BlockType GetBlockType() => blockType;
-        public GameObject GetBlockObject() => blockObject;
-        public Block_Container GetBlockContainer() => blockContainer;
+        public Block_Coords Get_Block_Coords() => blockCoords;
+        public BlockType Get_Block_Type() => blockType;
+        public GameObject Get_Block_Object() => blockObject;
+        public Block_Container Get_Block_Container() => blockContainer;
 
         public void Set_Block_Type(BlockType _blockType)
         {
@@ -66,7 +67,7 @@ public class Dirt_Inc_Settings
 
     //The value of a block
     private static double dirtValue = 0.1d;
-    public static double GetBlockValue(BlockType _block)
+    public static double Get_Block_Value(BlockType _block)
     {
         double blockValue = dirtValue;
 
@@ -95,7 +96,7 @@ public class Dirt_Inc_Settings
         }
     }
 
-    public void UpdateDirtValue()
+    public void Update_Dirt_Value()
     {
         dirtValue = 1;
     }
@@ -110,7 +111,7 @@ public class Dirt_Inc_Settings
     private static readonly float emeraldChance = 0.2f;
     private static readonly float diamondChance = 0.05f;
 
-    public static BlockType GetRandomBlockType()
+    public static BlockType Get_Random_BlockType()
     {
         float totalChance = 101;
         float randomBlockChance = Random.Range(1, totalChance);
@@ -184,17 +185,17 @@ public class Dirt_Inc_Settings
 
     #region Block Grid and Coords
     //The list of blocks in the block grid
-    private static Block[,,] Block_Container;
-    public static bool Set_Ground(Block[,,] _ground)
+    private static Block[][,,] blockContainer = new Block[1][,,];
+    public static bool Set_Ground(int _groundID, Block[,,] _ground)
     {
-        Block_Container = _ground;
+        blockContainer[_groundID] = _ground;
 
-        return (Block_Container.GetLength(0) == BLOCK_COUNT_X
-            && Block_Container.GetLength(1) == BLOCK_COUNT_Y
-            && Block_Container.GetLength(2) == BLOCK_COUNT_Z);
+        return (blockContainer.GetLength(0) == BLOCK_COUNT_X
+            && blockContainer.GetLength(1) == BLOCK_COUNT_Y
+            && blockContainer.GetLength(2) == BLOCK_COUNT_Z);
     }
 
-    public static Block[,,] Get_Ground() => Block_Container;
+    public static Block[,,] Get_Ground(int _groundID) => blockContainer[_groundID];
 
     //Contain for the coordinates of a block
     public struct Block_Coords
@@ -214,31 +215,31 @@ public class Dirt_Inc_Settings
 
     #region Block Adjustments
     //The block which is currently in use by the game
-    private static Block_Coords currentBlockCoords = new Block_Coords(0,0,0);
-    public static Block_Coords Get_Current_Block_Coords() => currentBlockCoords;
-    private static void Set_Current_Block_Coords(Block_Coords _new)
+    private static Block_Coords[] currentBlockCoords = new Block_Coords[blockContainer.Length];
+    public static Block_Coords Get_Current_Block_Coords(int _groundID) => currentBlockCoords[_groundID];
+    private static void Set_Current_Block_Coords(int _groundID, Block_Coords _new)
     {
-        currentBlockCoords = _new;
+        currentBlockCoords[_groundID] = _new;
     }
 
-    private static Block GetBlock(Block_Coords _coords)
+    private static Block Get_Block(Block_Coords _coords)
     {
-        return Get_Ground()[_coords.x, _coords.y, _coords.z];
+        return Get_Ground(0)[_coords.x, _coords.y, _coords.z];
     }
     
-    public static Block GetCurrentBlock()
+    public static Block Get_Current_Block(int _groundID)
     {
-        return GetBlock(Get_Current_Block_Coords());
+        return Get_Block(Get_Current_Block_Coords(_groundID));
     }
 
     //Functionlity to move through the blocks in the grid
-    public static void Adjust_Current_Block(byte _adjustment)
+    public static void Adjust_Current_Block(int _groundID, byte _adjustment)
     {
-        Block_Coords newCoords = Get_Current_Block_Coords();
+        Block_Coords newCoords = Get_Current_Block_Coords(_groundID);
 
         for(byte i = 0; i < _adjustment; i++)
         {
-            Block temp = Get_Ground()[newCoords.x, newCoords.y, newCoords.z];
+            Block temp = Get_Ground(_groundID)[newCoords.x, newCoords.y, newCoords.z];
 
             if (newCoords.x + 1 >= BLOCK_COUNT_X)
             {
@@ -252,7 +253,7 @@ public class Dirt_Inc_Settings
                     if (newCoords.y + 1 >= BLOCK_COUNT_Y)
                     {
                         newCoords.y = 0;
-                        Reset_Ground();
+                        Reset_Ground(_groundID);
                     }
                     else
                     {
@@ -271,14 +272,14 @@ public class Dirt_Inc_Settings
             }
         }
 
-        Set_Current_Block_Coords(newCoords);
-        Debug.Log($"We are at x: {currentBlockCoords.x} y: {currentBlockCoords.y} z: {currentBlockCoords.z}");
+        Set_Current_Block_Coords(_groundID, newCoords);
+        //Debug.Log($"We are at x: {currentBlockCoords.x} y: {currentBlockCoords.y} z: {currentBlockCoords.z}");
     }
 
     //Reset all the blocks back to visible
-    private static void Reset_Ground()
+    private static void Reset_Ground(int _groundID)
     {
-        Ground_Generator.Update_Ground(ref Block_Container);
+        Ground_Generator.Update_Ground(ref blockContainer[_groundID]);
     }
     #endregion
 }
