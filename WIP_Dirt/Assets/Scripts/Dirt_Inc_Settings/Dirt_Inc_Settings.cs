@@ -7,7 +7,6 @@ using UnityEngine;
 //Contains all of the base values and functionality needed for the game
 public class Dirt_Inc_Settings
 {
-    //hello
     #region Block Variables
     //Variables for the size of the block grid
     private const byte BLOCK_COUNT_X = 20;
@@ -184,8 +183,10 @@ public class Dirt_Inc_Settings
     #endregion
 
     #region Block Grid and Coords
+    private const int GROUND_COUNT = 4;
+    public static int Get_Ground_Count() => GROUND_COUNT;
     //The list of blocks in the block grid
-    private static Block[][,,] blockContainer = new Block[1][,,];
+    private static Block[][,,] blockContainer = new Block[Get_Ground_Count()][,,];
     public static bool Set_Ground(int _groundID, Block[,,] _ground)
     {
         blockContainer[_groundID] = _ground;
