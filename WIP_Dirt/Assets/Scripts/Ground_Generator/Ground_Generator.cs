@@ -21,9 +21,6 @@ public class Ground_Generator : MonoBehaviour
 
         //Update start pos to offset from center
         Calculate_Block_Start_Pos(ref blockStartPos, maxX, maxY, maxZ, blockScaleX, blockScaleY, blockScaleZ);
-
-        
-
         Dirt_Inc_Settings.Block[,,] generatedGround = new Dirt_Inc_Settings.Block[maxX, maxY, maxZ];
 
         for(byte y = 0; y < maxY; y++)
@@ -75,7 +72,9 @@ public class Ground_Generator : MonoBehaviour
         float yOffset = (_ySize / 2f) * _scaleY;
         float zOffset = (_zSize / 2f) * _scaleZ;
 
-        _pos = new Vector3(_pos.x - xOffset, _pos.y - yOffset, _pos.z + zOffset);
+        _pos.x -= xOffset;
+        _pos.y += yOffset;
+        _pos.z += zOffset;
     }
 
     public static void Update_Ground(ref Dirt_Inc_Settings.Block[,,] _ground)

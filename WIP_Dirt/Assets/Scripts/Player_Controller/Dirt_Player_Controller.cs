@@ -12,11 +12,6 @@ public class Dirt_Player_Controller : MonoBehaviour
     private InputAction startGameAction;
     private InputAction orbitAction;
 
-    private Vector2 orbitDirection;
-
-    private const float CAMERA_DISTANCE = 12f;
-    private Camera mainCamera;
-
     #region Enable/Disable/Start
     private void OnEnable() => SetupControls();
     private void Start() => AddControlEvents();
@@ -30,10 +25,6 @@ public class Dirt_Player_Controller : MonoBehaviour
     //Get the control actions and enable them
     private void SetupControls()
     {
-        mainCamera = Camera.main;
-        if (!mainCamera)
-            Debug.LogError("Failed to find main camera");
-
         digAction = currentInput.currentActionMap.FindAction("Dig");
         if (digAction != null)
             digAction.Enable();
@@ -90,10 +81,11 @@ public class Dirt_Player_Controller : MonoBehaviour
 
     private void OnOrbit(InputAction.CallbackContext obj)
     {
-        orbitDirection = obj.ReadValue<Vector2>();
+        if(obj.phase == InputActionPhase.Performed)
+        {
+            Camera_Functionality.Move_Camera(obj.ReadValue<Vector2>());
+        }
     }
-
-
     #endregion
 
     #region Adding and Removing Control Events
@@ -121,15 +113,5 @@ public class Dirt_Player_Controller : MonoBehaviour
             orbitAction.performed -= OnOrbit;
     }
 
-    #endregion
-
-    #region Control Functionality
-    private void Update()
-    {
-        if(orbitDirection != Vector2.zero)
-        {
-            print(orbitDirection);
-        }
-    }
     #endregion
 }

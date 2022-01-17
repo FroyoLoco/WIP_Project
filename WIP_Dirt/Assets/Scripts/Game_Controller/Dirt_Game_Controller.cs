@@ -13,6 +13,7 @@ public class Dirt_Game_Controller : MonoBehaviour
     {
         Upgrade_Manager.SetupUpgrades();
         Ground_Generator.Generate_Ground();
+        Camera_Functionality.Setup_Camera();
         //Dirt_Numbers.Test_Dirt();
     }
 }
