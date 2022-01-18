@@ -5,7 +5,6 @@ public class Camera_Functionality : MonoBehaviour
     #region Camera Functionality
     private enum CameraPosition { top, bottom, front, back, left, right };
     private const float CAMERA_DISTANCE_Y = 20f;
-    private const float CAMERA_DISTANCE_X = 20f;
     private const float CAMERA_DISTANCE_Z = 20f;
     private static Camera mainCamera;
     private static CameraPosition currentCameraPosition = CameraPosition.front;
@@ -50,41 +49,41 @@ public class Camera_Functionality : MonoBehaviour
             }
         }
         else
-            Debug.LogError($"Camera object: {mainCamera} / transform: {mainCameraTransform} not found");
+            Debug.LogError($"Camera object: {mainCamera} / transform: {mainCameraTransform} not found!");
     }
 
     private static void Set_Camera_To_Position(CameraPosition _c)
     {
+        float positionX = Dirt_Inc_Settings.Get_Active_Ground() * Dirt_Inc_Settings.Get_X_Ground_Distance();
+
         switch (_c)
         {
             case CameraPosition.top:
-                mainCameraTransform.position = new Vector3(0, CAMERA_DISTANCE_Y, 0);
+                mainCameraTransform.position = new Vector3(positionX, CAMERA_DISTANCE_Y, 0);
                 currentCameraPosition = CameraPosition.top;
                 Look_Camera_At_Centre();
                 break;
             case CameraPosition.bottom:
-                mainCameraTransform.position = new Vector3(0, -CAMERA_DISTANCE_Y, 0);
+                mainCameraTransform.position = new Vector3(positionX, -CAMERA_DISTANCE_Y, 0);
                 currentCameraPosition = CameraPosition.bottom;
                 Look_Camera_At_Centre();
                 break;
             case CameraPosition.front:
-                mainCameraTransform.position = new Vector3(0, 0, -CAMERA_DISTANCE_Z);
+                mainCameraTransform.position = new Vector3(positionX, 0, -CAMERA_DISTANCE_Z);
                 currentCameraPosition = CameraPosition.front;
                 Look_Camera_At_Centre();
                 break;
             case CameraPosition.back:
-                mainCameraTransform.position = new Vector3(0, 0, CAMERA_DISTANCE_Z);
+                mainCameraTransform.position = new Vector3(positionX, 0, CAMERA_DISTANCE_Z);
                 currentCameraPosition = CameraPosition.back;
                 Look_Camera_At_Centre();
                 break;
             case CameraPosition.left:
-                mainCameraTransform.position = new Vector3(-CAMERA_DISTANCE_X, 0, 0);
-                currentCameraPosition = CameraPosition.left;
+                mainCameraTransform.position = new Vector3(positionX, 0, -CAMERA_DISTANCE_Z);
                 Look_Camera_At_Centre();
                 break;
             case CameraPosition.right:
-                mainCameraTransform.position = new Vector3(CAMERA_DISTANCE_X, 0, 0);
-                currentCameraPosition = CameraPosition.right;
+                mainCameraTransform.position = new Vector3(positionX, 0, -CAMERA_DISTANCE_Z);
                 Look_Camera_At_Centre();
                 break;
             default:
@@ -98,22 +97,22 @@ public class Camera_Functionality : MonoBehaviour
         switch (currentCameraPosition)
         {
             case CameraPosition.top:
-                Set_Camera_To_Position(CameraPosition.back);
+                //Set_Camera_To_Position(CameraPosition.back);
                 break;
             case CameraPosition.bottom:
-                Set_Camera_To_Position(CameraPosition.front);
+                //Set_Camera_To_Position(CameraPosition.front);
                 break;
             case CameraPosition.front:
                 Set_Camera_To_Position(CameraPosition.top);
                 break;
             case CameraPosition.back:
-                Set_Camera_To_Position(CameraPosition.top);
+                //Set_Camera_To_Position(CameraPosition.top);
                 break;
             case CameraPosition.left:
-                Set_Camera_To_Position(CameraPosition.top);
+                //Set_Camera_To_Position(CameraPosition.top);
                 break;
             case CameraPosition.right:
-                Set_Camera_To_Position(CameraPosition.top);
+                //Set_Camera_To_Position(CameraPosition.top);
                 break;
         }
     }
@@ -126,77 +125,39 @@ public class Camera_Functionality : MonoBehaviour
                 Set_Camera_To_Position(CameraPosition.front);
                 break;
             case CameraPosition.bottom:
-                Set_Camera_To_Position(CameraPosition.back);
+                //Set_Camera_To_Position(CameraPosition.back);
                 break;
             case CameraPosition.front:
-                Set_Camera_To_Position(CameraPosition.bottom);
+                //Set_Camera_To_Position(CameraPosition.bottom);
                 break;
             case CameraPosition.back:
-                Set_Camera_To_Position(CameraPosition.bottom);
+                //Set_Camera_To_Position(CameraPosition.bottom);
                 break;
             case CameraPosition.left:
-                Set_Camera_To_Position(CameraPosition.bottom);
+                //Set_Camera_To_Position(CameraPosition.bottom);
                 break;
             case CameraPosition.right:
-                Set_Camera_To_Position(CameraPosition.bottom);
+                //Set_Camera_To_Position(CameraPosition.bottom);
                 break;
         }
     }
 
     private static void Move_Camera_Left()
     {
-        switch (currentCameraPosition)
-        {
-            case CameraPosition.top:
-                Set_Camera_To_Position(CameraPosition.left);
-                break;
-            case CameraPosition.bottom:
-                Set_Camera_To_Position(CameraPosition.left);
-                break;
-            case CameraPosition.front:
-                Set_Camera_To_Position(CameraPosition.left);
-                break;
-            case CameraPosition.back:
-                Set_Camera_To_Position(CameraPosition.left);
-                break;
-            case CameraPosition.left:
-                Set_Camera_To_Position(CameraPosition.back);
-                break;
-            case CameraPosition.right:
-                Set_Camera_To_Position(CameraPosition.front);
-                break;
-        }
+        Dirt_Inc_Settings.Set_Active_Ground(Dirt_Inc_Settings.Get_Active_Ground() - 1);
+        Set_Camera_To_Position(CameraPosition.left);
     }
 
     private static void Move_Camera_Right()
     {
-        switch (currentCameraPosition)
-        {
-            case CameraPosition.top:
-                Set_Camera_To_Position(CameraPosition.right);
-                break;
-            case CameraPosition.bottom:
-                Set_Camera_To_Position(CameraPosition.right);
-                break;
-            case CameraPosition.front:
-                Set_Camera_To_Position(CameraPosition.right);
-                break;
-            case CameraPosition.back:
-                Set_Camera_To_Position(CameraPosition.right);
-                break;
-            case CameraPosition.left:
-                Set_Camera_To_Position(CameraPosition.front);
-                break;
-            case CameraPosition.right:
-                Set_Camera_To_Position(CameraPosition.back);
-                break;
-        }
+        Dirt_Inc_Settings.Set_Active_Ground(Dirt_Inc_Settings.Get_Active_Ground() + 1);
+        Set_Camera_To_Position(CameraPosition.right);
     }
 
     private static void Look_Camera_At_Centre()
     {
-        print("Rotate");
-        mainCameraTransform.LookAt(Vector3.zero);
+        Vector3 centerActiveGround = Vector3.right * (Dirt_Inc_Settings.Get_Active_Ground() * Dirt_Inc_Settings.Get_X_Ground_Distance());
+        mainCameraTransform.LookAt(centerActiveGround);
     }
     #endregion
 

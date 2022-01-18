@@ -54,19 +54,6 @@ public class Ground_Generator : MonoBehaviour
             }
         }
 
-        /*
-        if(!Dirt_Inc_Settings.Set_Ground(0, generatedGround))
-        {
-            print("failed");
-        }
-        else
-        {
-            print($"Complete X: {Dirt_Inc_Settings.Get_Ground(0).GetLength(0)}, " +
-                  $"Y: {Dirt_Inc_Settings.Get_Ground(0).GetLength(1)}, " +
-                  $"Z: {Dirt_Inc_Settings.Get_Ground(0).GetLength(2)}");
-        }
-        */
-
         return generatedGround;
     }
 
