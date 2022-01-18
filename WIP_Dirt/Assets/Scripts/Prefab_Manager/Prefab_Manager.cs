@@ -103,27 +103,27 @@ public class Prefab_Manager : MonoBehaviour
     public static GameObject Get_Dirt_Block_Prefab() => dirtBlockPrefab;
 
     //Get the material based on the block type
-    public static Material Get_Material(Dirt_Inc_Settings.BlockType _blockType)
+    public static Material Get_Material(Block_Settings.BlockType _blockType)
     {
         switch(_blockType)
         {
-            case Dirt_Inc_Settings.BlockType.dirt:
+            case Block_Settings.BlockType.dirt:
                 return DIRT_MAT;
-            case Dirt_Inc_Settings.BlockType.stone:
+            case Block_Settings.BlockType.stone:
                 return STONE_MAT;
-            case Dirt_Inc_Settings.BlockType.tin:
+            case Block_Settings.BlockType.tin:
                 return TIN_MAT;
-            case Dirt_Inc_Settings.BlockType.copper:
+            case Block_Settings.BlockType.copper:
                 return COPPER_MAT;
-            case Dirt_Inc_Settings.BlockType.iron:
+            case Block_Settings.BlockType.iron:
                 return IRON_MAT;
-            case Dirt_Inc_Settings.BlockType.lead:
+            case Block_Settings.BlockType.lead:
                 return LEAD_MAT;
-            case Dirt_Inc_Settings.BlockType.gold:
+            case Block_Settings.BlockType.gold:
                 return GOLD_MAT;
-            case Dirt_Inc_Settings.BlockType.emerald:
+            case Block_Settings.BlockType.emerald:
                 return EMERALD_MAT;
-            case Dirt_Inc_Settings.BlockType.diamond:
+            case Block_Settings.BlockType.diamond:
                 return DIAMOND_MAT;
             default:
                 return DIRT_MAT;

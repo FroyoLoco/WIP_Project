@@ -70,8 +70,8 @@ public class Dirt_Player_Controller : MonoBehaviour
     private void Dig_Block()
     {
         //Manual digging is always on the first ground (ID:0)
-        Dirt_Numbers.Add_Dirt(Dirt_Inc_Settings.Get_Block_Value(Dirt_Inc_Settings.Get_Current_Block(0).Get_Block_Type()));
-        Dirt_Inc_Settings.Adjust_Current_Block(0, 1);
+        Dirt_Numbers.Add_Dirt(Block_Settings.Get_Block_Value(Ground_Settings.Get_Current_Block(0).Get_Block_Type()));
+        Ground_Settings.Adjust_Current_Block(0, 1);
     }
 
     //Testing Controls

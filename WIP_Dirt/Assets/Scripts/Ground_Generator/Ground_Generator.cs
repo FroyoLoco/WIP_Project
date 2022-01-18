@@ -8,20 +8,20 @@ using UnityEngine;
 public class Ground_Generator : MonoBehaviour
 {
     //Generate a grid of blocks in the world
-    public static Dirt_Inc_Settings.Block[,,] Generate_Ground(Vector3 _groundCenter)
+    public static Block_Settings.Block[,,] Generate_Ground(Vector3 _groundCenter)
     {
-        byte maxX = Dirt_Inc_Settings.Get_Block_Count_X();
-        byte maxY = Dirt_Inc_Settings.Get_Block_Count_Y();
-        byte maxZ = Dirt_Inc_Settings.Get_Block_Count_Z();
+        byte maxX = Ground_Settings.Get_Block_Count_X();
+        byte maxY = Ground_Settings.Get_Block_Count_Y();
+        byte maxZ = Ground_Settings.Get_Block_Count_Z();
         GameObject blockPrefab = Prefab_Manager.Get_Dirt_Block_Prefab();
         Vector3 blockStartPos = _groundCenter;
-        float blockScaleX = Dirt_Inc_Settings.Get_Block_Scale_X();
-        float blockScaleY = Dirt_Inc_Settings.Get_Block_Scale_Y();
-        float blockScaleZ = Dirt_Inc_Settings.Get_Block_Scale_Z();
+        float blockScaleX = Block_Settings.Get_Block_Scale_X();
+        float blockScaleY = Block_Settings.Get_Block_Scale_Y();
+        float blockScaleZ = Block_Settings.Get_Block_Scale_Z();
 
         //Update start pos to offset from center
         Calculate_Block_Start_Pos(ref blockStartPos, maxX, maxY, maxZ, blockScaleX, blockScaleY, blockScaleZ);
-        Dirt_Inc_Settings.Block[,,] generatedGround = new Dirt_Inc_Settings.Block[maxX, maxY, maxZ];
+        Block_Settings.Block[,,] generatedGround = new Block_Settings.Block[maxX, maxY, maxZ];
 
         for(byte y = 0; y < maxY; y++)
         {
@@ -35,8 +35,8 @@ public class Ground_Generator : MonoBehaviour
                     Vector3 spawnPos = new Vector3(posX, posY, posZ);
 
                     GameObject _block = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
-                    generatedGround[x, y, z] = new Dirt_Inc_Settings.Block(new Dirt_Inc_Settings.Block_Coords(x, y, z),
-                                                                         Dirt_Inc_Settings.Get_Random_BlockType(),
+                    generatedGround[x, y, z] = new Block_Settings.Block(new Coord_Settings.Block_Coords(x, y, z),
+                                                                         Block_Settings.Get_Random_BlockType(),
                                                                          _block,
                                                                          _block.GetComponent<Block_Container>());
 
@@ -68,11 +68,11 @@ public class Ground_Generator : MonoBehaviour
         _pos.z += zOffset;
     }
 
-    public static void Update_Ground(ref Dirt_Inc_Settings.Block[,,] _ground)
+    public static void Update_Ground(ref Block_Settings.Block[,,] _ground)
     { 
-        foreach (Dirt_Inc_Settings.Block _b in _ground)
+        foreach (Block_Settings.Block _b in _ground)
         {
-            _b.Set_Block_Type(Dirt_Inc_Settings.Get_Random_BlockType());
+            _b.Set_Block_Type(Block_Settings.Get_Random_BlockType());
             _b.Toggle_Block(true);
         }
     }

@@ -54,7 +54,7 @@ public class Camera_Functionality : MonoBehaviour
 
     private static void Set_Camera_To_Position(CameraPosition _c)
     {
-        float positionX = Dirt_Inc_Settings.Get_Active_Ground() * Dirt_Inc_Settings.Get_X_Ground_Distance();
+        float positionX = Ground_Settings.Get_Active_Ground() * Ground_Settings.Get_X_Ground_Distance();
 
         switch (_c)
         {
@@ -144,19 +144,19 @@ public class Camera_Functionality : MonoBehaviour
 
     private static void Move_Camera_Left()
     {
-        Dirt_Inc_Settings.Set_Active_Ground(Dirt_Inc_Settings.Get_Active_Ground() - 1);
+        Ground_Settings.Set_Active_Ground(Ground_Settings.Get_Active_Ground() - 1);
         Set_Camera_To_Position(CameraPosition.left);
     }
 
     private static void Move_Camera_Right()
     {
-        Dirt_Inc_Settings.Set_Active_Ground(Dirt_Inc_Settings.Get_Active_Ground() + 1);
+        Ground_Settings.Set_Active_Ground(Ground_Settings.Get_Active_Ground() + 1);
         Set_Camera_To_Position(CameraPosition.right);
     }
 
     private static void Look_Camera_At_Centre()
     {
-        Vector3 centerActiveGround = Vector3.right * (Dirt_Inc_Settings.Get_Active_Ground() * Dirt_Inc_Settings.Get_X_Ground_Distance());
+        Vector3 centerActiveGround = Vector3.right * (Ground_Settings.Get_Active_Ground() * Ground_Settings.Get_X_Ground_Distance());
         mainCameraTransform.LookAt(centerActiveGround);
     }
     #endregion

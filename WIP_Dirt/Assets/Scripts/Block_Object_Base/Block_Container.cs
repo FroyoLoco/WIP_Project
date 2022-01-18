@@ -15,7 +15,7 @@ public class Block_Container : MonoBehaviour
     }
 
     //Set the block material based in the input type
-    public void Set_Block_Material(Dirt_Inc_Settings.BlockType _blockType)
+    public void Set_Block_Material(Block_Settings.BlockType _blockType)
     {
         if (currentMesh)
         {

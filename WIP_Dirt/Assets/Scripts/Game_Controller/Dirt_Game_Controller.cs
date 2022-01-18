@@ -12,22 +12,31 @@ public class Dirt_Game_Controller : MonoBehaviour
     private void Begin_Game()
     {
         //Initialise Block Coords
-        Dirt_Inc_Settings.Initialise_Coords();
+        Coord_Settings.Initialise_Coords();
 
         //initiailise upgrades
         Upgrade_Manager.Setup_Upgrades();
 
-        print(Dirt_Inc_Settings.Get_X_Ground_Distance());
-
-        for (int i = 0; i < Dirt_Inc_Settings.Get_Ground_Count(); i++)
-        {
-            //Set each ground to the main settings
-            Dirt_Inc_Settings.Set_Ground(i,
-                                         Ground_Generator.Generate_Ground(Dirt_Inc_Settings.Get_World_Center_Pos()
-                                         + (Vector3.right * (Dirt_Inc_Settings.Get_X_Ground_Distance() * i))));
-        }
+        SpawnGround(Ground_Settings.Get_Ground_Count());
+        
 
         //Initialise camera funtionality
         Camera_Functionality.Setup_Camera();
+    }
+
+    private void SpawnGround(int _count)
+    {
+        Vector3 centre = Ground_Settings.Get_World_Center_Pos();
+        float xDistance = Ground_Settings.Get_X_Ground_Distance();
+
+        for (int _id = 0; _id < _count; _id++)
+        {
+            float newXDistance = xDistance * _id;
+            Vector3 newCenter = Vector3.right * newXDistance;
+            newCenter += centre;
+        
+            //Set each ground to the main settings
+            Ground_Settings.Set_Ground(_id, Ground_Generator.Generate_Ground(newCenter));
+        }
     }
 }
