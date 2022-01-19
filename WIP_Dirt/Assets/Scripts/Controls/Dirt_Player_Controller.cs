@@ -77,7 +77,7 @@ public class Dirt_Player_Controller : MonoBehaviour
     //Testing Controls
     private void On_Start_Game_Action(InputAction.CallbackContext obj)
     {
-        Upgrade_Manager.upgradeAccessor.Try_Upgrade(Upgrade_Manager.UpgradeType.Blocks_Per_Tap);
+        Upgrade_Manager.Get_Upgrade_Container().Try_Upgrade(Upgrade_Manager.UpgradeType.Blocks_Per_Tap);
     }
 
     private void On_Orbit(InputAction.CallbackContext obj)

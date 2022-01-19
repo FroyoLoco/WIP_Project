@@ -11,7 +11,7 @@ public class Upgrade_Manager
     public enum UpgradeType {Blocks_Per_Tap, Taps_Per_Block, Blocks_Per_Digger, Block_Unlocks };
 
     //Functionality for the upgrade itself 
-    private struct Upgrades
+    public struct Upgrades
     {
         private ulong upgradeCount;
         private double upgradeCost;
@@ -23,6 +23,8 @@ public class Upgrade_Manager
             upgradeCost = _upgradeCost;
             upgrade = _upgrade;
         }
+
+        public ulong Get_Upgrade_Count() => upgradeCount;
 
         public UpgradeType Get_Upgrade_Type() => upgrade;
 
@@ -43,7 +45,7 @@ public class Upgrade_Manager
     }
 
     //A container to hold all of the upgrades and functionality for the upgrade list
-    public struct UpgradeContainer
+    public class UpgradeContainer
     {
         private Upgrades[] upgradeList;
 
@@ -76,10 +78,13 @@ public class Upgrade_Manager
         public string Print_Upgrade(int _id) => upgradeList[_id].Get_Upgrade_Type().ToString();
 
         public int Get_Upgrade_Count() => upgradeList.Length;
+
+        public Upgrades Get_Upgrade_From_Type(UpgradeType _u) => upgradeList[Get_Upgrade_Index(_u)];
     }
 
     //For testing
-    public static UpgradeContainer upgradeAccessor;
+    private static UpgradeContainer upgradeAccessor;
+    public static UpgradeContainer Get_Upgrade_Container() => upgradeAccessor;
     public static void Setup_Upgrades()
     {
         upgradeAccessor = new UpgradeContainer(4);
