@@ -2,11 +2,11 @@ public class Coord_Settings
 {
     public struct Block_Coords
     {
-        public byte x;
-        public byte y;
-        public byte z;
+        public uint x;
+        public uint y;
+        public uint z;
 
-        public Block_Coords(byte _x, byte _y, byte _z)
+        public Block_Coords(uint _x, uint _y, uint _z)
         {
             x = _x;
             y = _y;

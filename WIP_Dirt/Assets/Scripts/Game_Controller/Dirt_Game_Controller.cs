@@ -20,23 +20,23 @@ public class Dirt_Game_Controller : MonoBehaviour
         SpawnGround(Ground_Settings.Get_Ground_Count());
         
 
-        //Initialise camera funtionality
+        //Initialise camera funtionality last
         Camera_Functionality.Setup_Camera();
     }
 
     private void SpawnGround(int _count)
     {
-        Vector3 centre = Ground_Settings.Get_World_Center_Pos();
+        Vector3 center = Ground_Settings.Get_World_Center_Pos();
         float xDistance = Ground_Settings.Get_X_Ground_Distance();
 
         for (int _id = 0; _id < _count; _id++)
         {
             float newXDistance = xDistance * _id;
             Vector3 newCenter = Vector3.right * newXDistance;
-            newCenter += centre;
+            newCenter += center;
         
             //Set each ground to the main settings
-            Ground_Settings.Set_Ground(_id, Ground_Generator.Generate_Ground(newCenter));
+            Ground_Settings.Set_Ground(_id, Ground_Generator.Generate_Ground(_id, newCenter));
         }
     }
 }

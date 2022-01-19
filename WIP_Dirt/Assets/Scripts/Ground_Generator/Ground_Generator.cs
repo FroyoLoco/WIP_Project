@@ -8,7 +8,7 @@ using UnityEngine;
 public class Ground_Generator : MonoBehaviour
 {
     //Generate a grid of blocks in the world
-    public static Block_Settings.Block[,,] Generate_Ground(Vector3 _groundCenter)
+    public static Block_Settings.Block[,,] Generate_Ground(int _groundID, Vector3 _groundCenter)
     {
         byte maxX = Ground_Settings.Get_Block_Count_X();
         byte maxY = Ground_Settings.Get_Block_Count_Y();
@@ -21,7 +21,13 @@ public class Ground_Generator : MonoBehaviour
 
         //Update start pos to offset from center
         Calculate_Block_Start_Pos(ref blockStartPos, maxX, maxY, maxZ, blockScaleX, blockScaleY, blockScaleZ);
+        //Create block list to return
         Block_Settings.Block[,,] generatedGround = new Block_Settings.Block[maxX, maxY, maxZ];
+        //Create new gameobject to act as a parent
+        GameObject newParent = new GameObject();
+        Transform newParentTransform = newParent.transform;
+        newParent.name = $"Ground ID: {_groundID}";
+        newParentTransform.position = blockStartPos;
 
         for(byte y = 0; y < maxY; y++)
         {
@@ -31,7 +37,7 @@ public class Ground_Generator : MonoBehaviour
                 {
                     float posX = blockStartPos.x + (blockScaleX * x);
                     float posY = blockStartPos.y - (blockScaleY * y);
-                    float posZ = blockStartPos.z - (blockScaleZ * z);
+                    float posZ = blockStartPos.z + (blockScaleZ * z);
                     Vector3 spawnPos = new Vector3(posX, posY, posZ);
 
                     GameObject _block = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
@@ -39,6 +45,8 @@ public class Ground_Generator : MonoBehaviour
                                                                          Block_Settings.Get_Random_BlockType(),
                                                                          _block,
                                                                          _block.GetComponent<Block_Container>());
+
+                    _block.transform.parent = newParentTransform;
 
                     _block.name = $"{generatedGround[x, y, z].Get_Block_Type()} @ " +
                                   $"{generatedGround[x, y, z].Get_Block_Coords().x}," +
@@ -59,13 +67,12 @@ public class Ground_Generator : MonoBehaviour
 
     private static void Calculate_Block_Start_Pos(ref Vector3 _pos, int _xSize, int _ySize, int _zSize, float _scaleX, float _scaleY, float _scaleZ)
     {
-        float xOffset = (_xSize / 2f) * _scaleX;
-        float yOffset = (_ySize / 2f) * _scaleY;
-        float zOffset = (_zSize / 2f) * _scaleZ;
+        float xOffset = _xSize / 2f * _scaleX;
+        float yOffset = _ySize / 2f * _scaleY;
 
         _pos.x -= xOffset;
         _pos.y += yOffset;
-        _pos.z += zOffset;
+        _pos.z -= _zSize / 2 * _scaleZ;
     }
 
     public static void Update_Ground(ref Block_Settings.Block[,,] _ground)

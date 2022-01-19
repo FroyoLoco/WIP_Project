@@ -9,9 +9,9 @@ public class Ground_Settings : Block_Settings
     public static byte Get_Block_Count_X() => BLOCK_COUNT_X;
     public static byte Get_Block_Count_Y() => BLOCK_COUNT_Y;
     public static byte Get_Block_Count_Z() => BLOCK_COUNT_Z;
-    private static readonly Vector3 worldCenterPos = Vector3.zero;
+    private static readonly Vector3 worldCenterPos = new Vector3(0,-Get_Block_Count_Y(),0);
     public static Vector3 Get_World_Center_Pos() => worldCenterPos;
-    private const int GROUND_COUNT = 4;
+    private const int GROUND_COUNT = 3;
     private const float X_DISTANCE_BETWEEN_GROUND = BLOCK_COUNT_X;
     public static float Get_X_Ground_Distance() => X_DISTANCE_BETWEEN_GROUND * 2f;
     public static int Get_Ground_Count() => GROUND_COUNT;
@@ -26,7 +26,7 @@ public class Ground_Settings : Block_Settings
             return true;
         }
 
-        Debug.LogWarning($"Cannot set active ground (should be 0 - {Get_Ground_Count() - 1} is: {_i}");
+        //Debug.LogWarning($"Cannot set active ground (should be 0 - {Get_Ground_Count() - 1} is: {_i}");
         return false;
     }
     //The list of blocks in each block grid
@@ -37,9 +37,9 @@ public class Ground_Settings : Block_Settings
         {
             blockContainer[_groundID] = _ground;
 
-            return (blockContainer.GetLength(0) == BLOCK_COUNT_X
+            return blockContainer.GetLength(0) == BLOCK_COUNT_X
                 && blockContainer.GetLength(1) == BLOCK_COUNT_Y
-                && blockContainer.GetLength(2) == BLOCK_COUNT_Z);
+                && blockContainer.GetLength(2) == BLOCK_COUNT_Z;
         }
         else
             Debug.LogError($"Attempting to set a ground outside of range! Setting:{_ground} Max:{Get_Ground_Count() - 1}");
