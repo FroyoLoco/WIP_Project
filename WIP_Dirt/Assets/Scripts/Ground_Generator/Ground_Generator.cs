@@ -49,9 +49,9 @@ public class Ground_Generator : MonoBehaviour
                     _block.transform.parent = newParentTransform;
 
                     _block.name = $"{generatedGround[x, y, z].Get_Block_Type()} @ " +
-                                  $"{generatedGround[x, y, z].Get_Block_Coords().x}," +
-                                  $"{generatedGround[x, y, z].Get_Block_Coords().y}," +
-                                  $"{generatedGround[x, y, z].Get_Block_Coords().z}";
+                                  $"x: {generatedGround[x, y, z].Get_Block_Coords().x}, " +
+                                  $"y: {generatedGround[x, y, z].Get_Block_Coords().y}, " +
+                                  $"z: {generatedGround[x, y, z].Get_Block_Coords().z}";
 
                     if (!generatedGround[x, y, z].Get_Block_Container())
                         Debug.LogError("Failed to find block container!");

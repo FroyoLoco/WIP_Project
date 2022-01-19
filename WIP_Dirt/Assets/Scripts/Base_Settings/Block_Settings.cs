@@ -94,43 +94,43 @@ public class Block_Settings : MonoBehaviour
 
     public static BlockType Get_Random_BlockType()
     {
-        float totalChance = 101;
-        float randomBlockChance = Random.Range(1, totalChance);
+        float totalChance = 101f;
+        float randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= diamondChance)
         {
             return BlockType.diamond;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= emeraldChance)
         {
             return BlockType.emerald;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= goldChance)
         {
             return BlockType.gold;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= leadChance)
         {
             return BlockType.lead;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= ironChance)
         {
             return BlockType.iron;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= copperChance)
         {
@@ -138,7 +138,7 @@ public class Block_Settings : MonoBehaviour
             return BlockType.copper;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= tinChance)
         {
@@ -146,14 +146,14 @@ public class Block_Settings : MonoBehaviour
         }
 
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= tinChance)
         {
             return BlockType.tin;
         }
 
-        randomBlockChance = Random.Range(1, totalChance);
+        randomBlockChance = Random.Range(0f, totalChance);
 
         if (randomBlockChance <= stoneChance)
         {

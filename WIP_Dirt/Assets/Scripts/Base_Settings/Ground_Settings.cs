@@ -3,9 +3,9 @@ using UnityEngine;
 public class Ground_Settings : Block_Settings
 {
     #region Base ground variables
-    private const byte BLOCK_COUNT_X = 20;
-    private const byte BLOCK_COUNT_Y = 10;
-    private const byte BLOCK_COUNT_Z = 10;
+    private const byte BLOCK_COUNT_X = 22;
+    private const byte BLOCK_COUNT_Y = 12;
+    private const byte BLOCK_COUNT_Z = 12;
     public static byte Get_Block_Count_X() => BLOCK_COUNT_X;
     public static byte Get_Block_Count_Y() => BLOCK_COUNT_Y;
     public static byte Get_Block_Count_Z() => BLOCK_COUNT_Z;
